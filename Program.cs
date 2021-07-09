@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -13,6 +13,8 @@ namespace PdfGenerationWebServer
         static void Main(string[] args)
         {
             IPdfGenerator pdfGenerator = new IronPdfGenerator();
+            //IPdfGenerator pdfGenerator = new SelectPdfGenerator();
+            //IPdfGenerator pdfGenerator = new AsposePdfGenerator();
 
             var shouldExit = false;
             using (var shouldExitWaitHandle = new ManualResetEvent(shouldExit))
@@ -32,6 +34,8 @@ namespace PdfGenerationWebServer
                 {
                     var contextAsyncResult = listener.BeginGetContext((IAsyncResult asyncResult) =>
                         {
+                            Console.WriteLine($"-");
+
                             var context = listener.EndGetContext(asyncResult);
 
                             string reqBody;
